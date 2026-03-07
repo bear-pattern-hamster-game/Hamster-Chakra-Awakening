@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚡ HAMSTER CHAKRA AWAKENING ⚡</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap');
+
+:root {
+  --c1: #ff006e; --c2: #fb5607; --c3: #ffbe0b;
+  --c4: #06d6a0; --c5: #118ab2; --c6: #8b00ff; --c7: #c77dff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  background: #00000a;
+  font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+  overflow: hidden;
+  cursor: crosshair;
+}
+
+#aura-bg {
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 60% at 50% 50%, rgba(139,0,255,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(255,0,110,0.14) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(6,214,160,0.08) 0%, transparent 45%),
+    radial-gradient(ellipse at 80% 20%, rgba(255,190,11,0.08) 0%, transparent 45%),
+    #00000a;
+  animation: auraPulse 5s ease-in-out infinite alternate;
+}
+@keyframes auraPulse { from { opacity:0.8; } to { opacity:1; } }
+
+#particleCanvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+
+.aura-ring {
+  position: fixed; border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none; z-index: 2;
+}
+.ar1 { width:700px; height:700px; border:1px solid rgba(199,125,255,0.12); animation:spinCW 60s linear infinite; }
+.ar2 { width:560px; height:560px; border:1px solid rgba(255,0,110,0.10);   animation:spinCCW 44s linear infinite; }
+.ar3 { width:440px; height:440px; border:1px dashed rgba(255,190,11,0.10); animation:spinCW 32s linear infinite; }
+.ar4 { width:340px; height:340px; border:1px solid rgba(6,214,160,0.10);   animation:spinCCW 22s linear infinite; }
+
+@keyframes spinCW  { from{transform:translate(-50%,-50%) rotate(0deg)}   to{transform:translate(-50%,-50%) rotate(360deg)} }
+@keyframes spinCCW { from{transform:translate(-50%,-50%) rotate(0deg)}   to{transform:translate(-50%,-50%) rotate(-360deg)} }
+
+#main {
+  position: relative; z-index: 10;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 20px;
+}
+
+#mandala-wrap {
+  position: relative;
+  width: clamp(140px, 22vw, 200px);
+  height: clamp(140px, 22vw, 200px);
+  margin-bottom: 18px;
+  display: flex; align-items: center; justify-content: center;
+  animation: floatY 4s ease-in-out infinite;
+}
+
+#mandala-wrap::before {
+  content: '';
+  position: absolute; border-radius: 50%;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 170%; height: 170%;
+  background: radial-gradient(ellipse at center,
+    rgba(199,125,255,0.50) 0%,
+    rgba(139,0,255,0.28) 30%,
+    rgba(255,0,110,0.12) 55%,
+    transparent 72%
+  );
+  animation: outerAura 2.8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+#mandala-wrap::after {
+  content: '';
+  position: absolute; border-radius: 50%;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 115%; height: 115%;
+  background: radial-gradient(ellipse at center,
+    rgba(255,230,80,0.60) 0%,
+    rgba(255,120,0,0.28) 38%,
+    transparent 68%
+  );
+  animation: innerAura 1.8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes outerAura {
+  from { opacity:0.55; transform:translate(-50%,-50%) scale(0.90); }
+  to   { opacity:1.00; transform:translate(-50%,-50%) scale(1.10); }
+}
+@keyframes innerAura {
+  from { opacity:0.65; transform:translate(-50%,-50%) scale(0.93); }
+  to   { opacity:1.00; transform:translate(-50%,-50%) scale(1.07); }
+}
+
+.aura-ray {
+  position: absolute;
+  width: 2px; height: 85px;
+  top: 50%; left: 50%;
+  transform-origin: 50% 100%;
+  background: linear-gradient(to top, transparent, rgba(199,125,255,0.55), transparent);
+  border-radius: 2px;
+  animation: rayPulse 2.2s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+.aura-ray:nth-child(1) { transform:translateX(-50%) translateY(-100%) rotate(0deg);   animation-delay:0s;    }
+.aura-ray:nth-child(2) { transform:translateX(-50%) translateY(-100%) rotate(45deg);  animation-delay:0.27s; }
+.aura-ray:nth-child(3) { transform:translateX(-50%) translateY(-100%) rotate(90deg);  animation-delay:0.54s; }
+.aura-ray:nth-child(4) { transform:translateX(-50%) translateY(-100%) rotate(135deg); animation-delay:0.81s; }
+.aura-ray:nth-child(5) { transform:translateX(-50%) translateY(-100%) rotate(180deg); animation-delay:1.08s; }
+.aura-ray:nth-child(6) { transform:translateX(-50%) translateY(-100%) rotate(225deg); animation-delay:1.35s; }
+.aura-ray:nth-child(7) { transform:translateX(-50%) translateY(-100%) rotate(270deg); animation-delay:1.62s; }
+.aura-ray:nth-child(8) { transform:translateX(-50%) translateY(-100%) rotate(315deg); animation-delay:1.89s; }
+
+@keyframes rayPulse {
+  from { opacity:0.15; height:55px; }
+  to   { opacity:0.95; height:105px; }
+}
+
+#mandala-svg {
+  width: 100%; height: 100%;
+  position: relative; z-index: 2;
+  animation: mandalaSpin 25s linear infinite, mandalaGlow 2.5s ease-in-out infinite alternate;
+}
+@keyframes mandalaSpin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+@keyframes mandalaGlow {
+  from { filter: drop-shadow(0 0 14px rgba(199,125,255,0.9)) drop-shadow(0 0 35px rgba(255,190,11,0.6)) drop-shadow(0 0 65px rgba(255,0,110,0.35)); }
+  to   { filter: drop-shadow(0 0 30px rgba(255,230,80,1.0))  drop-shadow(0 0 65px rgba(199,125,255,1.0)) drop-shadow(0 0 110px rgba(139,0,255,0.7)); }
+}
+@keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+
+#title-main {
+  font-weight: 900;
+  font-size: clamp(16px, 3.2vw, 40px);
+  letter-spacing: 0.15em;
+  text-align: center; line-height: 1.15;
+  background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c7));
+  background-size: 300% auto;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  animation: gradShift 5s ease infinite;
+  margin-bottom: 6px;
+}
+@keyframes gradShift {
+  0%{background-position:0% center} 50%{background-position:100% center} 100%{background-position:0% center}
+}
+
+#title-sub {
+  font-family: 'Noto Sans JP', sans-serif; font-weight: 300;
+  font-size: clamp(9px, 1.2vw, 13px); letter-spacing: 0.28em;
+  color: rgba(199,160,255,0.75); text-align: center; margin-bottom: 10px;
+}
+
+#game-desc {
+  font-family: 'Noto Sans JP', sans-serif; font-weight: 300;
+  font-size: clamp(9px, 1.1vw, 12px); letter-spacing: 0.12em; line-height: 1.9;
+  color: rgba(180,200,255,0.5); text-align: center; max-width: 420px;
+  margin-bottom: 22px;
+  border-top: 1px solid rgba(199,125,255,0.15);
+  border-bottom: 1px solid rgba(199,125,255,0.15);
+  padding: 10px 0;
+}
+#game-desc span { color: rgba(255,190,11,0.85); }
+
+#chakra-bar { display:flex; gap:7px; margin-bottom:26px; align-items:center; }
+.chakra-dot { border-radius:50%; animation:cFlicker 1.8s ease-in-out infinite alternate; }
+.chakra-dot:nth-child(1){width:8px;  height:8px;  background:var(--c1); animation-delay:0s}
+.chakra-dot:nth-child(2){width:9px;  height:9px;  background:var(--c2); animation-delay:.25s}
+.chakra-dot:nth-child(3){width:10px; height:10px; background:var(--c3); animation-delay:.5s}
+.chakra-dot:nth-child(4){width:12px; height:12px; background:var(--c4); animation-delay:.75s}
+.chakra-dot:nth-child(5){width:10px; height:10px; background:var(--c5); animation-delay:1s}
+.chakra-dot:nth-child(6){width:9px;  height:9px;  background:var(--c6); animation-delay:1.25s}
+.chakra-dot:nth-child(7){width:8px;  height:8px;  background:var(--c7); animation-delay:1.5s}
+@keyframes cFlicker {
+  from{opacity:.2; transform:scale(.65); box-shadow:none}
+  to  {opacity:1;  transform:scale(1.5); box-shadow:0 0 14px currentColor,0 0 28px currentColor}
+}
+
+#buttons { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; }
+
+.play-btn {
+  position:relative;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  width:clamp(150px,20vw,210px); height:clamp(80px,11vw,110px);
+  border:none; background:none; cursor:pointer; text-decoration:none;
+  border-radius:6px; transition:transform .25s, box-shadow .25s; overflow:visible;
+}
+.play-btn-inner {
+  position:absolute; inset:0; border-radius:6px;
+  background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.10);
+  transition:border-color .3s, background .3s;
+}
+.play-btn:hover { transform:translateY(-5px) scale(1.04); }
+.play-btn:hover .play-btn-inner { border-color:rgba(255,255,255,0.3); background:rgba(255,255,255,0.06); }
+.play-btn.pc:hover  { box-shadow:0 10px 40px rgba(17,138,178,0.4),0 0 20px rgba(199,125,255,0.3); }
+.play-btn.mob:hover { box-shadow:0 10px 40px rgba(255,0,110,0.4),0 0 20px rgba(255,190,11,0.3); }
+
+.btn-content { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:4px; }
+.btn-icon { font-size:clamp(20px,3vw,30px); transition:transform .3s; }
+.play-btn:hover .btn-icon { transform:scale(1.25) rotate(-5deg); }
+.btn-en { font-family:'Orbitron',sans-serif; font-weight:700; font-size:clamp(10px,1.3vw,13px); letter-spacing:.2em; }
+.btn-ja { font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:clamp(8px,.9vw,10px); letter-spacing:.18em; color:rgba(180,160,255,0.55); margin-top:1px; }
+.play-btn.pc  .btn-en { color:#7ecfff; }
+.play-btn.mob .btn-en { color:#ffaa6e; }
+
+.corner { position:fixed; width:50px; height:50px; z-index:5; pointer-events:none; opacity:.35; }
+.corner::before,.corner::after { content:''; position:absolute; background:rgba(199,125,255,0.8); }
+.corner::before { width:100%; height:1px; top:0; left:0; }
+.corner::after  { width:1px; height:100%; top:0; left:0; }
+.corner.tl { top:18px; left:18px; }
+.corner.tr { top:18px; right:18px; transform:rotate(90deg); }
+.corner.bl { bottom:18px; left:18px; transform:rotate(270deg); }
+.corner.br { bottom:18px; right:18px; transform:rotate(180deg); }
+
+#footer {
+  position:fixed; bottom:14px; left:50%; transform:translateX(-50%);
+  font-size:8px; letter-spacing:.3em; color:rgba(255,255,255,0.12); z-index:10; white-space:nowrap;
+}
+
+#scanlines {
+  position:fixed; inset:0; z-index:25; pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.025) 2px,rgba(0,0,0,0.025) 4px);
+}
+</style>
+</head>
+<body>
+
+<div id="aura-bg"></div>
+<canvas id="particleCanvas"></canvas>
+<div class="aura-ring ar1"></div>
+<div class="aura-ring ar2"></div>
+<div class="aura-ring ar3"></div>
+<div class="aura-ring ar4"></div>
+<div class="corner tl"></div><div class="corner tr"></div>
+<div class="corner bl"></div><div class="corner br"></div>
+<div id="scanlines"></div>
+
+<div id="main">
+
+  <div id="mandala-wrap">
+    <div class="aura-ray"></div><div class="aura-ray"></div>
+    <div class="aura-ray"></div><div class="aura-ray"></div>
+    <div class="aura-ray"></div><div class="aura-ray"></div>
+    <div class="aura-ray"></div><div class="aura-ray"></div>
+
+    <svg id="mandala-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="cg1" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="#ffe566"/>
+          <stop offset="40%"  stop-color="#c77dff"/>
+          <stop offset="100%" stop-color="#ff006e" stop-opacity="0.5"/>
+        </radialGradient>
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="2.5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="glow2" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur stdDeviation="5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <circle cx="100" cy="100" r="96" fill="none" stroke="rgba(199,125,255,0.2)" stroke-width="0.8"/>
+      <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,190,11,0.15)" stroke-width="0.5"/>
+
+      <g filter="url(#glow)" opacity="0.65">
+        <g id="p16"><ellipse cx="100" cy="12" rx="4.5" ry="11" fill="none" stroke="#c77dff" stroke-width="0.9"/></g>
+        <use href="#p16" transform="rotate(22.5,100,100)"/>  <use href="#p16" transform="rotate(45,100,100)"/>
+        <use href="#p16" transform="rotate(67.5,100,100)"/>  <use href="#p16" transform="rotate(90,100,100)"/>
+        <use href="#p16" transform="rotate(112.5,100,100)"/> <use href="#p16" transform="rotate(135,100,100)"/>
+        <use href="#p16" transform="rotate(157.5,100,100)"/> <use href="#p16" transform="rotate(180,100,100)"/>
+        <use href="#p16" transform="rotate(202.5,100,100)"/> <use href="#p16" transform="rotate(225,100,100)"/>
+        <use href="#p16" transform="rotate(247.5,100,100)"/> <use href="#p16" transform="rotate(270,100,100)"/>
+        <use href="#p16" transform="rotate(292.5,100,100)"/> <use href="#p16" transform="rotate(315,100,100)"/>
+        <use href="#p16" transform="rotate(337.5,100,100)"/>
+      </g>
+
+      <circle cx="100" cy="100" r="68" fill="none" stroke="rgba(255,190,11,0.25)" stroke-width="0.8"/>
+
+      <g filter="url(#glow)">
+        <g id="p8"><ellipse cx="100" cy="36" rx="8.5" ry="21" fill="rgba(199,125,255,0.12)" stroke="#c77dff" stroke-width="1.1"/></g>
+        <use href="#p8" transform="rotate(45,100,100)"/>  <use href="#p8" transform="rotate(90,100,100)"/>
+        <use href="#p8" transform="rotate(135,100,100)"/> <use href="#p8" transform="rotate(180,100,100)"/>
+        <use href="#p8" transform="rotate(225,100,100)"/> <use href="#p8" transform="rotate(270,100,100)"/>
+        <use href="#p8" transform="rotate(315,100,100)"/>
+      </g>
+
+      <circle cx="100" cy="100" r="46" fill="none" stroke="rgba(255,0,110,0.35)" stroke-width="0.9"/>
+
+      <g filter="url(#glow)" stroke-width="1.1" fill="none">
+        <polygon points="100,56 132,112 68,112" stroke="#ffbe0b" fill="rgba(255,190,11,0.05)"/>
+        <polygon points="100,144 132,88 68,88"  stroke="#ff006e" fill="rgba(255,0,110,0.05)"/>
+        <polygon points="100,50 138,116 62,116" stroke="rgba(255,190,11,0.3)"/>
+        <polygon points="100,150 138,84 62,84"  stroke="rgba(255,0,110,0.3)"/>
+      </g>
+
+      <circle cx="100" cy="100" r="24" fill="rgba(199,125,255,0.10)" stroke="#c77dff" stroke-width="1.4" filter="url(#glow2)"/>
+      <circle cx="100" cy="100" r="15" fill="rgba(255,200,50,0.18)"  stroke="#ffbe0b" stroke-width="1"   filter="url(#glow2)"/>
+      <circle cx="100" cy="100" r="5"  fill="url(#cg1)" filter="url(#glow2)"/>
+      <text x="100" y="107" text-anchor="middle" font-size="13" fill="rgba(255,230,100,0.95)" font-family="serif" filter="url(#glow2)">ॐ</text>
+
+      <g fill="rgba(199,125,255,0.7)" filter="url(#glow)">
+        <circle cx="100" cy="4" r="2.2"/>  <circle cx="100" cy="196" r="2.2"/>
+        <circle cx="4" cy="100" r="2.2"/>  <circle cx="196" cy="100" r="2.2"/>
+        <circle cx="29" cy="29" r="1.6"/>  <circle cx="171" cy="29" r="1.6"/>
+        <circle cx="29" cy="171" r="1.6"/> <circle cx="171" cy="171" r="1.6"/>
+      </g>
+    </svg>
+  </div>
+
+  <h1 id="title-main">HAMSTER CHAKRA<br>AWAKENING</h1>
+  <p id="title-sub">チャクラ覚醒ゲーム</p>
+
+  <p id="game-desc">
+    <span>Bear-Pattern-Hamster</span> と共にチャクラを覚醒させろ。<br>
+    30種のボス・UFO中ボス・<span>10段階覚醒システム</span>搭載。<br>
+    物理演算で世界を砕き、宇宙の真理に辿り着け。
+  </p>
+
+  <div id="chakra-bar">
+    <div class="chakra-dot"></div><div class="chakra-dot"></div>
+    <div class="chakra-dot"></div><div class="chakra-dot"></div>
+    <div class="chakra-dot"></div><div class="chakra-dot"></div>
+    <div class="chakra-dot"></div>
+  </div>
+
+  <div id="buttons">
+    <a class="play-btn pc" href="./pc/">
+      <div class="play-btn-inner"></div>
+      <div class="btn-content">
+        <div class="btn-icon">🖥️</div>
+        <div class="btn-en">PC VERSION</div>
+        <div class="btn-ja">パソコン版</div>
+      </div>
+    </a>
+    <a class="play-btn mob" href="./mobile/">
+      <div class="play-btn-inner"></div>
+      <div class="btn-content">
+        <div class="btn-icon">📱</div>
+        <div class="btn-en">MOBILE VERSION</div>
+        <div class="btn-ja">スマートフォン版</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<div id="footer">⚡ HAMSTER CHAKRA AWAKENING &nbsp;·&nbsp; SELECT YOUR DEVICE</div>
+
+<script>
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d');
+const COLORS = ['#ff006e','#fb5607','#ffbe0b','#06d6a0','#118ab2','#8b00ff','#c77dff'];
+let W, H, particles = [];
+
+function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+window.addEventListener('resize', resize); resize();
+
+class P {
+  constructor(x, y, burst) {
+    this.x = x ?? Math.random() * W;
+    this.y = y ?? Math.random() * H;
+    this.vx = (Math.random() - 0.5) * (burst ? 3 : 0.8);
+    this.vy = burst ? (Math.random() - 0.5) * 3 : -(Math.random() * 1.2 + 0.3);
+    this.r = Math.random() * (burst ? 3 : 2) + 0.5;
+    this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+    this.alpha = Math.random() * 0.8 + 0.2;
+    this.life = 1;
+    this.decay = burst ? 0.025 : (Math.random() * 0.004 + 0.001);
+  }
+  update() { this.x += this.vx; this.y += this.vy; this.vy -= 0.008; this.life -= this.decay; }
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, this.life) * this.alpha;
+    ctx.shadowBlur = 10; ctx.shadowColor = this.color; ctx.fillStyle = this.color;
+    ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+}
+
+for (let i = 0; i < 160; i++) particles.push(new P());
+
+// 曼荼羅オーラパーティクル
+setInterval(() => {
+  const cx = W/2, cy = H/2;
+  const angle = Math.random() * Math.PI * 2;
+  const rad = clamp(innerWidth, 600, 1400) * 0.09;
+  const p = new P(cx + Math.cos(angle)*rad, cy + Math.sin(angle)*rad, false);
+  p.vx = Math.cos(angle) * (Math.random()*0.8+0.3);
+  p.vy = Math.sin(angle) * (Math.random()*0.8+0.3) - 0.5;
+  p.decay = 0.012; p.r = Math.random()*3+1;
+  particles.push(p);
+}, 40);
+
+function clamp(v,min,max){return Math.max(min,Math.min(max,v));}
+
+function loop() {
+  ctx.clearRect(0,0,W,H);
+  particles = particles.filter(p => p.life > 0 && p.y > -20);
+  while (particles.length < 160) particles.push(new P());
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(loop);
+}
+loop();
+
+document.addEventListener('mousemove', e => {
+  if (Math.random() > 0.5) return;
+  const p = new P(e.clientX, e.clientY, false);
+  p.r = Math.random()*3+1; p.decay = 0.03;
+  particles.push(p);
+});
+
+document.addEventListener('click', e => {
+  for (let i = 0; i < 20; i++) particles.push(new P(e.clientX, e.clientY, true));
+});
+</script>
+</body>
+</html>
