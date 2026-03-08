@@ -15,10 +15,11 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
-  width: 100%; height: 100%;
+  width: 100%; min-height: 100%;
   background: #00000a;
   font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   cursor: crosshair;
 }
 
@@ -52,17 +53,17 @@ html, body {
 
 #main {
   position: relative; z-index: 10;
-  width: 100%; height: 100%;
+  width: 100%; min-height: 100vh;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  padding: 20px;
+  padding: 10px 20px;
 }
 
 #mandala-wrap {
   position: relative;
-  width: clamp(140px, 22vw, 200px);
-  height: clamp(140px, 22vw, 200px);
-  margin-bottom: 18px;
+  width: clamp(100px, 15vw, 150px);
+  height: clamp(100px, 15vw, 150px);
+  margin-bottom: 10px;
   display: flex; align-items: center; justify-content: center;
   animation: floatY 4s ease-in-out infinite;
 }
@@ -163,16 +164,16 @@ html, body {
 
 #game-desc {
   font-family: 'Noto Sans JP', sans-serif; font-weight: 300;
-  font-size: clamp(9px, 1.1vw, 12px); letter-spacing: 0.12em; line-height: 1.9;
+  font-size: clamp(9px, 1.1vw, 12px); letter-spacing: 0.12em; line-height: 1.7;
   color: rgba(180,200,255,0.5); text-align: center; max-width: 420px;
-  margin-bottom: 22px;
+  margin-bottom: 10px;
   border-top: 1px solid rgba(199,125,255,0.15);
   border-bottom: 1px solid rgba(199,125,255,0.15);
-  padding: 10px 0;
+  padding: 6px 0;
 }
 #game-desc span { color: rgba(255,190,11,0.85); }
 
-#chakra-bar { display:flex; gap:7px; margin-bottom:26px; align-items:center; }
+#chakra-bar { display:flex; gap:7px; margin-bottom:14px; align-items:center; }
 .chakra-dot { border-radius:50%; animation:cFlicker 1.8s ease-in-out infinite alternate; }
 .chakra-dot:nth-child(1){width:8px;  height:8px;  background:var(--c1); animation-delay:0s}
 .chakra-dot:nth-child(2){width:9px;  height:9px;  background:var(--c2); animation-delay:.25s}
@@ -330,6 +331,8 @@ html, body {
     <small style="font-size:0.8em;opacity:0.6;">物理演算で世界を砕き、宇宙の真理に辿り着け。</small>
   </p>
 
+  <p style="font-size:0.75em;opacity:0.7;margin:0.8em 0;color:#7ecfff;">📱 動画再生にはChromeブラウザを推奨します。<br><small>For the best experience, we recommend playing in Chrome.</small></p>
+
   <div id="chakra-bar">
     <div class="chakra-dot"></div><div class="chakra-dot"></div>
     <div class="chakra-dot"></div><div class="chakra-dot"></div>
@@ -428,5 +431,6 @@ document.addEventListener('click', e => {
 </script>
 </body>
 </html>
+
 
 
