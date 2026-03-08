@@ -2327,16 +2327,14 @@ canvas {
 
 <!-- ==================== VIDEO PLAYER ==================== -->
 <div id="youtubePlayerContainer">
-  <iframe
+  <video
     id="youtubePlayer"
-    src="https://drive.google.com/file/d/1Pi_pkx50JRVsdBdmm2YdCCUdUx078PtM/preview"
-    frameborder="0"
-    allow="autoplay; encrypted-media; fullscreen; picture-in-picture; web-share"
-    allowfullscreen
+    src="https://raw.githubusercontent.com/bear-pattern-hamster-game/Hamster-Chakra-Awakening/main/hamster-chakra-awaking001.mp4"
     playsinline
     webkit-playsinline
-    scrolling="no">
-  </iframe>
+    loop
+    style="width:100%;height:100%;object-fit:cover;">
+  </video>
   <!-- 一時停止時の黒幕オーバーレイ -->
   <div id="videoPauseOverlay">
     <span class="pause-icon">⏹</span>
@@ -7603,10 +7601,11 @@ document.addEventListener('keydown', (e) => {
       toggleBtn.classList.remove('video-hidden');
       toggleBtn.textContent = '▲';
       toggleBtn.style.bottom = '';
-      // トランジション完了後にiframeを強制再描画（height:0で潰れたレイアウトを修復）
+      // トランジション完了後にvideoを強制再描画（height:0で潰れたレイアウトを修復）
       setTimeout(function() {
-        iframe.style.display = 'none';
-        requestAnimationFrame(function() { iframe.style.display = ''; });
+        var vid = document.getElementById('youtubePlayer');
+        vid.style.display = 'none';
+        requestAnimationFrame(function() { vid.style.display = ''; });
       }, 660);
     } else {
       container.classList.add('video-hidden');
@@ -7660,28 +7659,25 @@ document.addEventListener('keydown', (e) => {
 (function() {
   const playBtn = document.getElementById('videoPlayBtn');
   const pauseBtn = document.getElementById('videoPauseBtn');
-  const iframe = document.getElementById('youtubePlayer');
+  const video = document.getElementById('youtubePlayer');
   const overlay = document.getElementById('videoPauseOverlay');
 
-  // Google Drive プレビューURLのベース
-  const BASE_SRC = 'https://drive.google.com/file/d/1THneyyJq47CVWGUO1PyS8o8a1xHs7EZH/preview';
-  const PLAY_SRC = BASE_SRC + '?autoplay=1';
-
-  // 再生ボタン：srcをセットして再生開始
+  // 再生ボタン
   function handlePlay(e) {
     e.preventDefault();
     e.stopPropagation();
-    iframe.src = PLAY_SRC;
+    video.play();
     overlay.classList.remove('paused');
     playBtn.style.transform = 'scale(0.9)';
     setTimeout(function() { playBtn.style.transform = ''; }, 150);
   }
 
-  // 停止ボタン：srcを空にして完全停止 + 黒幕表示
+  // 停止ボタン
   function handleStop(e) {
     e.preventDefault();
     e.stopPropagation();
-    iframe.src = 'about:blank';
+    video.pause();
+    video.currentTime = 0;
     overlay.classList.add('paused');
     pauseBtn.style.transform = 'scale(0.9)';
     setTimeout(function() { pauseBtn.style.transform = ''; }, 150);
@@ -10823,6 +10819,7 @@ window.addEventListener('message', function(e) {
 
 </body>
 </html>
+
 
 
 
