@@ -3,6 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<script>
+// iframeのviewportサイズをCSS変数に反映（vwがiframe外基準になる問題を解消）
+(function() {
+  function setVW() {
+    var vw = document.documentElement.clientWidth * 0.01;
+    document.documentElement.style.setProperty('--vw', vw + 'px');
+  }
+  setVW();
+  window.addEventListener('resize', setVW);
+})();
+</script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <title>Hamster Chakra Awakening - 覚醒への道</title>
@@ -55,7 +66,7 @@
   margin-bottom: 10px;
   font-family: 'Orbitron', sans-serif;
   font-weight: 900;
-  font-size: clamp(7px, 2.5vw, 11px);
+  font-size: clamp(7px, calc(var(--vw) * 2.5), 11px);
   letter-spacing: 0.08em;
   color: #000;
   box-shadow: 0 0 18px rgba(255,215,0,0.6), 0 0 40px rgba(255,215,0,0.25);
@@ -68,8 +79,8 @@
 
 /* ===== チャクラオーブ ===== */
 #splashOrb {
-  width: clamp(110px, 30vw, 160px);
-  height: clamp(110px, 30vw, 160px);
+  width: clamp(110px, calc(var(--vw) * 30), 160px);
+  height: clamp(110px, calc(var(--vw) * 30), 160px);
   margin-bottom: 10px;
   animation: splashOrbIn 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.15s both;
   position: relative;
@@ -121,7 +132,7 @@
 #splashTitle {
   font-family: 'Orbitron', sans-serif;
   font-weight: 900;
-  font-size: clamp(18px, 5.5vw, 32px);
+  font-size: clamp(18px, calc(var(--vw) * 5.5), 32px);
   color: #ffffff;
   letter-spacing: 0.10em;
   text-align: center;
@@ -131,7 +142,7 @@
 }
 #splashSub {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(8px, 2.5vw, 13px);
+  font-size: clamp(8px, calc(var(--vw) * 2.5), 13px);
   color: #c084fc;
   letter-spacing: 0.28em;
   text-shadow: 0 0 14px #a855f7;
@@ -148,7 +159,7 @@
   border: 1.5px solid rgba(200,130,255,0.40);
   border-radius: 16px;
   padding: 12px 18px;
-  max-width: min(85vw, 360px);
+  max-width: min(calc(var(--vw) * 85), 360px);
   width: 100%;
   margin-bottom: 14px;
   box-shadow: 0 0 24px rgba(168,85,247,0.20), inset 0 0 16px rgba(120,50,200,0.07);
@@ -156,7 +167,7 @@
   text-align: center;
 }
 .card-icon {
-  font-size: clamp(20px, 5vw, 28px);
+  font-size: clamp(20px, calc(var(--vw) * 5), 28px);
   filter: drop-shadow(0 0 8px rgba(255,255,255,0.5));
   animation: iconFloat 2.5s ease-in-out infinite;
 }
@@ -167,7 +178,7 @@
 .card-main {
   font-family: 'Orbitron', sans-serif;
   font-weight: 700;
-  font-size: clamp(10px, 3vw, 15px);
+  font-size: clamp(10px, calc(var(--vw) * 3), 15px);
   color: #fff;
   letter-spacing: 0.04em;
   text-shadow: 0 0 10px rgba(200,150,255,0.7);
@@ -175,7 +186,7 @@
 }
 .card-main span { color: #ffd700; text-shadow: 0 0 8px rgba(255,215,0,0.6); }
 .card-sub {
-  font-size: clamp(8px, 2.2vw, 11px);
+  font-size: clamp(8px, calc(var(--vw) * 2.2), 11px);
   color: rgba(210,180,255,0.75);
   letter-spacing: 0.03em;
   line-height: 1.5;
@@ -185,7 +196,7 @@
 #splashStartBtn {
   font-family: 'Orbitron', sans-serif;
   font-weight: 900;
-  font-size: clamp(13px, 3.5vw, 19px);
+  font-size: clamp(13px, calc(var(--vw) * 3.5), 19px);
   letter-spacing: 0.14em;
   color: #000;
   background: linear-gradient(90deg, #ff5a5a, #ff9f43, #ffd93d, #6cff6c, #5ad9ff, #9f7cff, #ff5a5a);
@@ -209,7 +220,7 @@
 
 /* ===== タップヒント ===== */
 #splashTapHint {
-  font-size: clamp(8px, 2.2vw, 11px);
+  font-size: clamp(8px, calc(var(--vw) * 2.2), 11px);
   color: rgba(200,160,255,0.55);
   letter-spacing: 0.14em;
   animation: splashFadeUp 0.6s ease 0.90s both, tapBlink 2s ease-in-out 1.6s infinite;
@@ -240,7 +251,7 @@
   padding: 7px 14px;
   border-radius: 999px;
   font-family: 'Noto Sans JP', 'Orbitron', sans-serif;
-  font-size: clamp(10px, 2.8vw, 12px);
+  font-size: clamp(10px, calc(var(--vw) * 2.8), 12px);
   font-weight: 700;
   letter-spacing: 0.04em;
   text-decoration: none;
@@ -274,7 +285,7 @@
   background: linear-gradient(135deg, rgba(255,215,0,0.10), rgba(180,100,255,0.08));
   border: 1px solid rgba(255,215,0,0.35);
   box-shadow: 0 0 12px rgba(255,200,0,0.12);
-  max-width: min(85vw, 360px);
+  max-width: min(calc(var(--vw) * 85), 360px);
   width: 100%;
   flex-shrink: 0;
   animation: splashFadeUp 0.6s ease 1.0s both;
@@ -285,7 +296,7 @@
 }
 #splashCertCard .cert-main {
   font-family: 'Noto Sans JP', sans-serif;
-  font-size: clamp(9px, 2.2vw, 11px);
+  font-size: clamp(9px, calc(var(--vw) * 2.2), 11px);
   font-weight: 700;
   color: #ffe566;
 }
@@ -295,7 +306,7 @@
 }
 #splashCertCard .cert-sub {
   font-family: 'Noto Sans JP', sans-serif;
-  font-size: clamp(8px, 1.9vw, 10px);
+  font-size: clamp(8px, calc(var(--vw) * 1.9), 10px);
   color: rgba(255,220,150,0.65);
   letter-spacing: 0.3px;
   line-height: 1.4;
@@ -366,8 +377,8 @@ canvas {
 #youtubePlayerContainer {
   position: fixed;
   top: 210px;
-  left: clamp(7px, 1.4vw, 14px);
-  width: clamp(200px, 30vw, 320px);
+  left: clamp(7px, calc(var(--vw) * 1.4), 14px);
+  width: clamp(200px, calc(var(--vw) * 30), 320px);
   aspect-ratio: 1 / 1;
   border-radius: 16px;
   overflow: hidden;
@@ -379,14 +390,14 @@ canvas {
 
 #youtubePlayer {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   border: none;
   pointer-events: auto;
-  -webkit-overflow-scrolling: touch;
+  object-fit: cover;
+  background: #000;
 }
 
 /* ==================== スマホ: 動画を縦型・画面下部に全幅表示 ==================== */
@@ -395,7 +406,7 @@ canvas {
     top: auto;
     bottom: 0;
     left: 0;
-    width: 100vw;
+    width: calc(var(--vw) * 100);
     height: 42vh;
     aspect-ratio: unset;
     border-radius: 16px 16px 0 0;
@@ -602,7 +613,7 @@ canvas {
   --awn-color-bright: #cc99ff;
   --awn-color-glow:   rgba(180, 80, 255, 0.30);
   --awn-color-soft:   rgba(220, 180, 255, 0.10);
-  width: min(60vw, 210px);
+  width: min(calc(var(--vw) * 60), 210px);
   background:
     radial-gradient(ellipse at 50% 0%,   var(--awn-color-soft) 0%, transparent 60%),
     radial-gradient(ellipse at 50% 110%, var(--awn-color-soft)  0%, transparent 55%),
@@ -745,7 +756,7 @@ canvas {
 /* ── ラベル: AWAKENING · Ⅲ ── */
 .awn-label {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(7px, 1.8vw, 9px);
+  font-size: clamp(7px, calc(var(--vw) * 1.8), 9px);
   font-weight: 700;
   letter-spacing: 0.30em;
   color: var(--awn-color-bright);
@@ -757,7 +768,7 @@ canvas {
 /* ── メインタイトル（第○覚醒） ── */
 .awn-title {
   font-family: 'Orbitron', 'Segoe UI', sans-serif;
-  font-size: clamp(13px, 3.2vw, 17px);
+  font-size: clamp(13px, calc(var(--vw) * 3.2), 17px);
   font-weight: 900;
   color: #fff;
   letter-spacing: 0.12em;
@@ -791,7 +802,7 @@ canvas {
 /* ── 詩テキスト ── */
 .awn-poem {
   font-family: 'Noto Sans JP', 'Segoe UI', sans-serif;
-  font-size: clamp(9px, 2vw, 11px);
+  font-size: clamp(9px, calc(var(--vw) * 2), 11px);
   font-weight: 300;
   color: rgba(240, 225, 255, 0.88);
   line-height: 1.6;
@@ -803,17 +814,17 @@ canvas {
 /* ==================== HUD STYLES ==================== */
 #hud {
   position: fixed;
-  top: clamp(4px, 0.8vw, 7px);
-  left: clamp(4px, 0.8vw, 7px);
+  top: clamp(4px, calc(var(--vw) * 0.8), 7px);
+  left: clamp(4px, calc(var(--vw) * 0.8), 7px);
   color: white;
-  font-size: clamp(7px, 1.4vw, 9px);
+  font-size: clamp(7px, calc(var(--vw) * 1.4), 9px);
   font-weight: bold;
   font-family: 'Orbitron', 'Segoe UI', sans-serif;
   letter-spacing: 0.04em;
   text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.9);
   z-index: 100;
   background: rgba(10, 0, 25, 0.72);
-  padding: clamp(5px, 0.9vw, 8px) clamp(6px, 1.1vw, 10px);
+  padding: clamp(5px, calc(var(--vw) * 0.9), 8px) clamp(6px, calc(var(--vw) * 1.1), 10px);
   border-radius: 8px;
   backdrop-filter: none;
   border: 1px solid rgba(160,100,255,0.35);
@@ -827,11 +838,11 @@ canvas {
 }
 
 #hud div {
-  margin: clamp(1px, 0.3vw, 3px) 0;
+  margin: clamp(1px, calc(var(--vw) * 0.3), 3px) 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-width: clamp(60px, 12vw, 80px);
+  min-width: clamp(60px, calc(var(--vw) * 12), 80px);
 }
 
 #hud .label { color: #c4a0ff; margin-right: 5px; }
@@ -873,7 +884,7 @@ canvas {
   z-index: 200;
   flex-direction: column;
   backdrop-filter: blur(12px);
-  padding: clamp(12px, 4vw, 32px) clamp(16px, 5vw, 40px);
+  padding: clamp(12px, calc(var(--vw) * 4), 32px) clamp(16px, calc(var(--vw) * 5), 40px);
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -895,8 +906,8 @@ canvas {
 
 #gameOver h1 {
   color: #ff3a3a;
-  font-size: clamp(28px, 9vw, 80px);
-  margin-bottom: clamp(6px, 2vw, 24px);
+  font-size: clamp(28px, calc(var(--vw) * 9), 80px);
+  margin-bottom: clamp(6px, calc(var(--vw) * 2), 24px);
   font-family: 'Orbitron', 'Segoe UI', sans-serif;
   letter-spacing: 0.12em;
   text-shadow: 0 0 20px #ff0000, 0 0 50px #ff000088, 0 0 100px #ff000044;
@@ -911,8 +922,8 @@ canvas {
 
 #gameOver .stats {
   color: rgba(255,255,255,0.9);
-  font-size: clamp(13px, 3.5vw, 26px);
-  margin: clamp(3px, 1vw, 12px) 0;
+  font-size: clamp(13px, calc(var(--vw) * 3.5), 26px);
+  margin: clamp(3px, calc(var(--vw) * 1), 12px) 0;
   text-align: center;
   font-family: 'Orbitron', 'Segoe UI', sans-serif;
   letter-spacing: 0.05em;
@@ -921,8 +932,8 @@ canvas {
 
 #gameOver .awakening-final {
   color: gold;
-  font-size: clamp(13px, 3.8vw, 32px);
-  margin: clamp(6px, 2vw, 22px) 0;
+  font-size: clamp(13px, calc(var(--vw) * 3.8), 32px);
+  margin: clamp(6px, calc(var(--vw) * 2), 22px) 0;
   font-family: 'Orbitron', 'Segoe UI', sans-serif;
   text-shadow: 0 0 20px gold, 0 0 40px rgba(255,215,0,0.6);
   animation: goldShimmer 3s ease-in-out infinite;
@@ -935,9 +946,9 @@ canvas {
 }
 
 #gameOver button {
-  margin-top: clamp(10px, 3vw, 32px);
-  padding: clamp(10px, 2.5vw, 18px) clamp(24px, 6vw, 52px);
-  font-size: clamp(13px, 3vw, 22px);
+  margin-top: clamp(10px, calc(var(--vw) * 3), 32px);
+  padding: clamp(10px, calc(var(--vw) * 2.5), 18px) clamp(24px, calc(var(--vw) * 6), 52px);
+  font-size: clamp(13px, calc(var(--vw) * 3), 22px);
   font-weight: bold;
   font-family: 'Orbitron', 'Segoe UI', sans-serif;
   letter-spacing: 0.08em;
@@ -972,13 +983,13 @@ canvas {
   top: calc(50% + 74px);
   right: 8px;
   z-index: 150;
-  width: clamp(20px, 4vw, 24px);
-  height: clamp(20px, 4vw, 24px);
+  width: clamp(20px, calc(var(--vw) * 4), 24px);
+  height: clamp(20px, calc(var(--vw) * 4), 24px);
   border-radius: 50%;
   border: 2px solid rgba(138, 43, 226, 0.9);
   background: rgba(138, 43, 226, 0.75);
   color: rgba(255, 255, 255, 0.95);
-  font-size: clamp(9px, 1.8vw, 11px);
+  font-size: clamp(9px, calc(var(--vw) * 1.8), 11px);
   box-shadow: 0 0 14px rgba(138, 43, 226, 0.7);
   backdrop-filter: blur(10px);
   cursor: pointer;
@@ -1008,13 +1019,13 @@ canvas {
   top: calc(50% + 74px + 40px);
   right: 8px;
   z-index: 150;
-  width: clamp(20px, 4vw, 24px);
-  height: clamp(20px, 4vw, 24px);
+  width: clamp(20px, calc(var(--vw) * 4), 24px);
+  height: clamp(20px, calc(var(--vw) * 4), 24px);
   border-radius: 50%;
   border: 2px solid rgba(255, 180, 0, 0.9);
   background: rgba(180, 100, 0, 0.75);
   color: rgba(255, 255, 255, 0.95);
-  font-size: clamp(9px, 1.8vw, 11px);
+  font-size: clamp(9px, calc(var(--vw) * 1.8), 11px);
   box-shadow: 0 0 14px rgba(255, 165, 0, 0.7);
   backdrop-filter: blur(10px);
   cursor: pointer;
@@ -1064,20 +1075,20 @@ canvas {
   text-align: center;
   box-shadow: 0 0 40px rgba(255,165,0,0.4), 0 0 80px rgba(255,165,0,0.2);
   animation: auraPulse 2.5s ease-in-out infinite;
-  max-width: min(85vw, 340px);
+  max-width: min(calc(var(--vw) * 85), 340px);
   width: 100%;
 }
 .homeConfirmBox h2 {
   color: #ffd700;
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(16px, 4vw, 22px);
+  font-size: clamp(16px, calc(var(--vw) * 4), 22px);
   letter-spacing: 0.1em;
   text-shadow: 0 0 20px gold;
   margin-bottom: 10px;
 }
 .homeConfirmBox p {
   color: rgba(255,255,255,0.8);
-  font-size: clamp(12px, 3vw, 15px);
+  font-size: clamp(12px, calc(var(--vw) * 3), 15px);
   margin-bottom: 24px;
   line-height: 1.6;
 }
@@ -1089,7 +1100,7 @@ canvas {
 .homeConfirmBtns button {
   font-family: 'Orbitron', sans-serif;
   font-weight: bold;
-  font-size: clamp(12px, 3vw, 15px);
+  font-size: clamp(12px, calc(var(--vw) * 3), 15px);
   letter-spacing: 0.08em;
   border: none;
   border-radius: 999px;
@@ -1137,7 +1148,7 @@ canvas {
 }
 
 .pauseMenu {
-  padding: clamp(24px, 6vw, 42px) clamp(24px, 8vw, 64px);
+  padding: clamp(24px, calc(var(--vw) * 6), 42px) clamp(24px, calc(var(--vw) * 8), 64px);
   border-radius: 24px;
   background: linear-gradient(160deg, rgba(15,0,40,0.55) 0%, rgba(30,0,60,0.55) 100%);
   border: 2px solid transparent;
@@ -1150,7 +1161,7 @@ canvas {
   animation: auraPulse 2.5s ease-in-out infinite;
   text-align: center;
   backdrop-filter: blur(20px);
-  max-width: min(90vw, 420px);
+  max-width: min(calc(var(--vw) * 90), 420px);
   width: 100%;
   box-sizing: border-box;
 }
@@ -1160,22 +1171,22 @@ canvas {
   font-family: 'Orbitron', 'Segoe UI', sans-serif;
   letter-spacing: 0.1em;
   text-shadow: 0 0 25px gold, 0 0 50px rgba(255,215,0,0.6);
-  margin-bottom: clamp(10px, 3vw, 20px);
-  font-size: clamp(20px, 5vw, 38px);
+  margin-bottom: clamp(10px, calc(var(--vw) * 3), 20px);
+  font-size: clamp(20px, calc(var(--vw) * 5), 38px);
   white-space: nowrap;
 }
 
 .pauseMenu p {
   color: rgba(255,255,255,0.85);
-  font-size: clamp(12px, 2.8vw, 18px);
-  margin-bottom: clamp(10px, 3vw, 20px);
+  font-size: clamp(12px, calc(var(--vw) * 2.8), 18px);
+  margin-bottom: clamp(10px, calc(var(--vw) * 3), 20px);
   text-shadow: 0 0 8px rgba(200,150,255,0.4);
 }
 
 .pauseMenu button {
-  margin-top: clamp(8px, 2vw, 16px);
-  padding: clamp(10px, 2.5vw, 14px) clamp(24px, 6vw, 36px);
-  font-size: clamp(14px, 3vw, 21px);
+  margin-top: clamp(8px, calc(var(--vw) * 2), 16px);
+  padding: clamp(10px, calc(var(--vw) * 2.5), 14px) clamp(24px, calc(var(--vw) * 6), 36px);
+  font-size: clamp(14px, calc(var(--vw) * 3), 21px);
   font-family: 'Orbitron', 'Segoe UI', sans-serif;
   letter-spacing: 0.08em;
   border: none;
@@ -1213,7 +1224,7 @@ canvas {
 #instructionsWrapper {
   position: fixed;
   top: 150px;
-  left: clamp(5px, 1vw, 10px);
+  left: 5px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -1226,29 +1237,29 @@ canvas {
 
 #instructions {
   color: rgba(255, 255, 255, 0.6);
-  font-size: clamp(7px, 1.4vw, 9px);
+  font-size: clamp(7px, calc(var(--vw) * 1.4), 9px);
   text-align: left;
   background: rgba(10, 0, 25, 0.72);
-  padding: clamp(5px, 1.2vw, 8px);
+  padding: clamp(5px, calc(var(--vw) * 1.2), 8px);
   border-radius: 5px;
   backdrop-filter: none;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  max-width: min(90vw, 160px);
+  max-width: min(calc(var(--vw) * 90), 160px);
 }
 
 #instructions div {
-  margin: clamp(2px, 0.7vw, 4px) 0;
+  margin: clamp(2px, calc(var(--vw) * 0.7), 4px) 0;
 }
 
 #toggleInstructions {
   position: fixed;
-  width: clamp(22px, 4vw, 28px);
-  height: clamp(22px, 4vw, 28px);
+  width: clamp(22px, calc(var(--vw) * 4), 28px);
+  height: clamp(22px, calc(var(--vw) * 4), 28px);
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   color: white;
-  font-size: clamp(11px, 2vw, 14px);
+  font-size: clamp(11px, calc(var(--vw) * 2), 14px);
   cursor: pointer;
   z-index: 101;
   display: flex;
@@ -1273,7 +1284,7 @@ canvas {
 #subButtons {
   position: fixed;
   top: 150px;
-  left: clamp(5px, 1vw, 10px);
+  left: 5px;
   display: flex;
   flex-direction: row;
   gap: 8px;
@@ -1713,7 +1724,7 @@ canvas {
   top: 68px;
   left: 50%;
   transform: translateX(-50%);
-  width: clamp(200px, 50vw, 400px);
+  width: clamp(200px, calc(var(--vw) * 50), 400px);
   z-index: 160;
   display: none;
   flex-direction: column;
@@ -1725,7 +1736,7 @@ canvas {
 @media (max-width: 768px) {
   #bossHpContainer {
     top: 58px;
-    width: min(38vw, 160px);
+    width: min(calc(var(--vw) * 38), 160px);
     gap: 1px;
   }
   #bossName {
@@ -1737,7 +1748,7 @@ canvas {
 }
 #bossName {
   color: #ff5a5a;
-  font-size: clamp(10px, 2vw, 14px);
+  font-size: clamp(10px, calc(var(--vw) * 2), 14px);
   font-weight: bold;
   font-family: 'Orbitron', 'Segoe UI', sans-serif;
   letter-spacing: 0.1em;
@@ -2036,7 +2047,7 @@ canvas {
     <div id="bossName">👹 BOSS</div>
     <div id="bossNumberBadge" style="
       font-family:'Orbitron',sans-serif;font-weight:900;
-      font-size:clamp(9px,2.2vw,13px);letter-spacing:0.08em;
+      font-size:clamp(9px,calc(var(--vw) * 2.2),13px);letter-spacing:0.08em;
       color:#fff;white-space:nowrap;flex-shrink:0;
       background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.25);
       border-radius:999px;padding:2px 10px;
@@ -2046,7 +2057,7 @@ canvas {
   <div id="bossHpBar"><div id="bossHpFill"></div></div>
   <div id="bossLoopBadge" style="
     display:none;font-family:'Orbitron',sans-serif;font-weight:700;
-    font-size:clamp(7px,1.8vw,10px);letter-spacing:0.12em;
+    font-size:clamp(7px,calc(var(--vw) * 1.8),10px);letter-spacing:0.12em;
     color:#ffd700;text-shadow:0 0 8px rgba(255,215,0,0.7);
     text-align:right;width:100%;margin-top:2px;
   ">LOOP 1</div>
@@ -2327,18 +2338,14 @@ canvas {
 
 <!-- ==================== VIDEO PLAYER ==================== -->
 <div id="youtubePlayerContainer">
-  <iframe
+  <video
     id="youtubePlayer"
-    src="https://drive.google.com/file/d/1Pi_pkx50JRVsdBdmm2YdCCUdUx078PtM/preview"
-    frameborder="0"
-    allow="autoplay; encrypted-media; fullscreen; picture-in-picture; web-share; clipboard-write"
-    allowfullscreen
     playsinline
     webkit-playsinline
-    x5-video-player-type="h5"
-    x5-playsinline="true"
-    scrolling="no">
-  </iframe>
+    preload="none"
+    style="width:100%;height:100%;object-fit:cover;display:block;">
+    <source src="hamster-chakra-awaking001.mp4" type="video/mp4">
+  </video>
   <!-- 一時停止時の黒幕オーバーレイ -->
   <div id="videoPauseOverlay">
     <span class="pause-icon">⏹</span>
@@ -2604,7 +2611,7 @@ function applyLang(lang) {
   const tapHint = document.getElementById('splashTapHint');
   if (tapHint) tapHint.textContent = L.tapHint;
   const videoCard = document.getElementById('splashVideoCard');
-  if (videoCard) videoCard.style.maxWidth = lang === 'en' ? 'min(460px, 92vw)' : '';
+  if (videoCard) videoCard.style.maxWidth = lang === 'en' ? 'min(460px, calc(var(--vw) * 92))' : '';
 
   // Splash links
   const linkYt  = document.querySelector('.splash-link-yt span');
@@ -2726,13 +2733,13 @@ function applyLang(lang) {
   top: calc(95px + 52px + 8px);
   right: 6px;
   z-index: 150;
-  width: clamp(20px, 4vw, 24px);
-  height: clamp(20px, 4vw, 24px);
+  width: clamp(20px, calc(var(--vw) * 4), 24px);
+  height: clamp(20px, calc(var(--vw) * 4), 24px);
   border-radius: 50%;
   border: 2px solid rgba(200,130,255,0.7);
   background: rgba(60,0,120,0.70);
   color: rgba(220,180,255,0.9);
-  font-size: clamp(7px, 1.5vw, 9px);
+  font-size: clamp(7px, calc(var(--vw) * 1.5), 9px);
   font-family: 'Orbitron', sans-serif;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -3282,7 +3289,7 @@ function triggerAwakening(level) {
     position:fixed;left:50%;top:22%;
     transform:translateX(-50%);
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:clamp(10px,2vw,16px);
+    font-size:clamp(10px,calc(var(--vw) * 2),16px);
     font-weight:300;
     color:${c.bright};
     letter-spacing:0.55em;
@@ -5807,7 +5814,7 @@ function _alienSpeech(alien, text) {
     transform:translateX(-50%);
     background:transparent;border:2px solid ${alien.color};
     border-radius:16px;padding:10px 18px;
-    color:${alien.color};font-size:clamp(13px,3vw,18px);font-weight:bold;
+    color:${alien.color};font-size:clamp(13px,calc(var(--vw) * 3),18px);font-weight:bold;
     text-shadow:0 0 10px ${alien.color};
     pointer-events:none;z-index:295;white-space:nowrap;
     box-shadow:0 0 20px ${alien.color}66;
@@ -5828,12 +5835,12 @@ function _showAlienHpBar(alien) {
   bar.style.cssText = `
     position:fixed;left:50%;transform:translateX(-50%);
     top:${isMobile ? '58px' : '100px'};
-    width:${isMobile ? 'min(38vw, 160px)' : 'clamp(160px,38vw,300px)'};
+    width:${isMobile ? 'min(calc(var(--vw) * 38), 160px)' : 'clamp(160px,calc(var(--vw) * 38),300px)'};
     z-index:200;
     display:flex;flex-direction:column;align-items:center;gap:1px;
   `;
   bar.innerHTML = `
-    <div id="alienHpName" style="color:${alien.color};font-size:${isMobile ? '7px' : 'clamp(10px,2.2vw,13px)'};
+    <div id="alienHpName" style="color:${alien.color};font-size:${isMobile ? '7px' : 'clamp(10px,calc(var(--vw) * 2.2),13px)'};
       font-weight:bold;text-shadow:0 0 10px ${alien.color};letter-spacing:1px;">
       ${LANG_DATA[currentLang].alienNames[alien.id] || alien.name}
     </div>
@@ -6075,7 +6082,7 @@ function defeatAlienBoss() {
 
   const msg = document.createElement('div');
   msg.style.cssText = `position:fixed;left:50%;top:36%;transform:translateX(-50%);
-    font-size:clamp(18px,4vw,32px);font-weight:900;color:${alien.color};
+    font-size:clamp(18px,calc(var(--vw) * 4),32px);font-weight:900;color:${alien.color};
     text-shadow:0 0 30px ${alien.color};z-index:300;pointer-events:none;text-align:center;
     animation:bossAppear 0.4s ease-out,feverBanner 3s 0.4s ease-out forwards;`;
   msg.innerHTML = `${LANG_DATA[currentLang].ufoDefeated}<br>
@@ -6250,7 +6257,7 @@ function _bossAppearEffect(x, y, bt) {
     createParticles(x, y, 'rgba(180,220,255,0.6)', 10);
     const msg = document.createElement('div');
     msg.style.cssText = `position:fixed;left:50%;top:30%;transform:translateX(-50%);
-      font-size:clamp(18px,4.5vw,36px);font-weight:900;color:${bt.color};
+      font-size:clamp(18px,calc(var(--vw) * 4.5),36px);font-weight:900;color:${bt.color};
       text-shadow:0 0 40px ${bt.color},0 0 80px ${bt.glow};
       z-index:300;pointer-events:none;text-align:center;
       animation:bossAppear 0.5s ease-out,feverBanner 2.8s ease-out forwards;`;
@@ -6585,7 +6592,7 @@ function _triggerEnrage(boss, bt) {
   createParticles(boss.position.x, boss.position.y, bt.color, 15);
   const msg = document.createElement('div');
   msg.style.cssText = `position:fixed;left:50%;top:40%;transform:translateX(-50%);
-    font-size:clamp(24px,6vw,42px);font-weight:900;color:#ff0000;
+    font-size:clamp(24px,calc(var(--vw) * 6),42px);font-weight:900;color:#ff0000;
     text-shadow:0 0 30px #ff0000;z-index:300;pointer-events:none;letter-spacing:4px;
     animation:feverBanner 2s ease-out forwards;`;
   msg.textContent = '💢 ENRAGED!!';
@@ -6676,7 +6683,7 @@ function defeatBoss() {
 
     const msg = document.createElement('div');
     msg.style.cssText = `position:fixed;left:50%;top:33%;transform:translateX(-50%);
-      font-size:clamp(18px,4vw,32px);font-weight:300;letter-spacing:0.2em;
+      font-size:clamp(18px,calc(var(--vw) * 4),32px);font-weight:300;letter-spacing:0.2em;
       color:rgba(255,230,150,0.95);
       text-shadow:0 0 20px rgba(255,200,80,0.5);
       z-index:300;pointer-events:none;text-align:center;
@@ -7294,7 +7301,7 @@ attackBtn.addEventListener('touchend', (e) => {
     const nameEl = document.createElement('div');
     nameEl.style.cssText = `
       position:fixed; left:${targetX}px; top:${targetY - 50 - 68}px;
-      transform:translateX(-50%); font-size:clamp(14px,2.8vw,22px);
+      transform:translateX(-50%); font-size:clamp(14px,calc(var(--vw) * 2.8),22px);
       font-weight:900; color:#eee; text-shadow:0 0 20px #fff, 0 0 40px #ccc;
       z-index:501; pointer-events:none; opacity:0;
       transition:opacity 0.5s ease;
@@ -7418,7 +7425,7 @@ attackBtn.addEventListener('touchend', (e) => {
       msgEl.style.cssText = `
         position:fixed; left:${targetX}px; top:${targetY + 50 + 15}px;
         transform:translateX(-50%);
-        font-size:clamp(16px,3.2vw,28px); font-weight:900;
+        font-size:clamp(16px,calc(var(--vw) * 3.2),28px); font-weight:900;
         color:#fff; text-shadow:0 0 30px #cc99ff, 0 0 60px #9966ff;
         z-index:502; pointer-events:none; text-align:center; white-space:nowrap;
         opacity:0; transition:opacity 0.4s ease;
@@ -7662,30 +7669,30 @@ document.addEventListener('keydown', (e) => {
 (function() {
   const playBtn = document.getElementById('videoPlayBtn');
   const pauseBtn = document.getElementById('videoPauseBtn');
-  const iframe = document.getElementById('youtubePlayer');
+  const video = document.getElementById('youtubePlayer');
   const overlay = document.getElementById('videoPauseOverlay');
 
-  // Google Drive プレビューURLのベース
-  const BASE_SRC = 'https://drive.google.com/file/d/1THneyyJq47CVWGUO1PyS8o8a1xHs7EZH/preview';
-  const PLAY_SRC = BASE_SRC + '?autoplay=1';
-
-  // 再生ボタン：srcをセットして再生開始
+  // 再生ボタン：HTML5 video APIで直接再生（iframe不要・モバイル完全対応）
   function handlePlay(e) {
     e.preventDefault();
     e.stopPropagation();
-    // すでに再生中なら何もしない
-    if (iframe.src === PLAY_SRC) return;
-    iframe.src = PLAY_SRC;
+    var promise = video.play();
+    if (promise !== undefined) {
+      promise.catch(function(err) {
+        console.warn('video play error:', err);
+      });
+    }
     overlay.classList.remove('paused');
     playBtn.style.transform = 'scale(0.9)';
     setTimeout(function() { playBtn.style.transform = ''; }, 150);
   }
 
-  // 停止ボタン：srcを空にして完全停止 + 黒幕表示
+  // 停止ボタン：一時停止して先頭に戻す
   function handleStop(e) {
     e.preventDefault();
     e.stopPropagation();
-    iframe.src = 'about:blank';
+    video.pause();
+    video.currentTime = 0;
     overlay.classList.add('paused');
     pauseBtn.style.transform = 'scale(0.9)';
     setTimeout(function() { pauseBtn.style.transform = ''; }, 150);
@@ -7790,22 +7797,22 @@ document.addEventListener('keydown', (e) => {
     </svg>
   </div>
   <div style="text-align:center;">
-    <div id="certIssuingTitle" style="font-family:'Orbitron',sans-serif;font-size:clamp(14px,3vw,22px);
+    <div id="certIssuingTitle" style="font-family:'Orbitron',sans-serif;font-size:clamp(14px,calc(var(--vw) * 3),22px);
       font-weight:900;letter-spacing:4px;
       background:linear-gradient(135deg,#ffd700,#fff,#ff88ff,#00d4ff);
       background-size:300% auto;-webkit-background-clip:text;background-clip:text;
       color:transparent;animation:_certTitleShimmer 2s linear infinite;margin-bottom:12px;">
       覚醒証明書 発行中
     </div>
-    <div id="certIssuingSub" style="font-family:'Orbitron',sans-serif;font-size:clamp(9px,1.5vw,12px);
+    <div id="certIssuingSub" style="font-family:'Orbitron',sans-serif;font-size:clamp(9px,calc(var(--vw) * 1.5),12px);
       letter-spacing:5px;color:rgba(200,160,255,.5);margin-bottom:28px;">
       ISSUING CERTIFICATE OF AWAKENING
     </div>
-    <div id="certIssuingWait" style="font-family:sans-serif;font-size:clamp(11px,2vw,14px);
+    <div id="certIssuingWait" style="font-family:sans-serif;font-size:clamp(11px,calc(var(--vw) * 2),14px);
       color:rgba(200,180,255,.7);letter-spacing:2px;margin-bottom:20px;">
       しばらくお待ちください…
     </div>
-    <div style="width:clamp(200px,50vw,400px);height:6px;
+    <div style="width:clamp(200px,calc(var(--vw) * 50),400px);height:6px;
       background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;margin:0 auto;">
       <div id="certCountdownFill" style="height:100%;width:100%;border-radius:3px;
         background:linear-gradient(90deg,#9f7cff,#ffd700,#fff);
@@ -7932,7 +7939,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   cursor: default;
-  max-width: 100vw;
+  max-width: calc(var(--vw) * 100);
 }
 
 /* ====== COSMOS ====== */
@@ -7949,7 +7956,7 @@ body {
 #page {
   position: relative; z-index: 10;
   display: flex; flex-direction: column; align-items: center;
-  padding: 48px clamp(8px,2vw,16px) 72px; gap: 0;
+  padding: 48px clamp(8px,calc(var(--vw) * 2),16px) 72px; gap: 0;
   width: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
@@ -7977,7 +7984,7 @@ body {
 @keyframes badgeShine { to{background-position:200% center} }
 
 .splash-title {
-  font-size: clamp(24px,5vw,52px); font-weight: 900; letter-spacing: 3px;
+  font-size: clamp(24px,calc(var(--vw) * 5),52px); font-weight: 900; letter-spacing: 3px;
   color: transparent;
   background: linear-gradient(135deg,#ffd700 0%,#fff 35%,#ff88ff 60%,#00d4ff 100%);
   background-size: 300% auto;
@@ -7989,7 +7996,7 @@ body {
 @keyframes shimmer { to{background-position:300% center} }
 
 .splash-sub {
-  font-size: clamp(10px,2vw,16px);
+  font-size: clamp(10px,calc(var(--vw) * 2),16px);
   color: rgba(200,180,255,.85); letter-spacing: 5px;
   margin-top: 10px;
   text-shadow: 0 0 16px rgba(180,100,255,.7);
@@ -7998,7 +8005,7 @@ body {
 
 .poem-final {
   margin-top: 12px;
-  font-size: clamp(11px,1.8vw,14px);
+  font-size: clamp(11px,calc(var(--vw) * 1.8),14px);
   color: rgba(255,220,150,.8);
   letter-spacing: 4px;
   font-family: 'Noto Sans JP', sans-serif; font-weight: 300;
@@ -8010,8 +8017,8 @@ body {
 
 /* ====== CHAKRA ORB (from splash) ====== */
 #splashOrb {
-  width: clamp(150px,26vw,220px);
-  height: clamp(150px,26vw,220px);
+  width: clamp(150px,calc(var(--vw) * 26),220px);
+  height: clamp(150px,calc(var(--vw) * 26),220px);
   margin: 0 auto 40px;
   flex-shrink: 0;
   animation: orbIn 1s cubic-bezier(.34,1.56,.64,1) .2s both, orbFloat 4s ease-in-out 1.2s infinite, orbAura 3s ease-in-out 1.2s infinite;
@@ -8042,12 +8049,12 @@ body {
 
 /* ====== AWAKENING POEM SCROLL ====== */
 #poemScroll {
-  width: min(680px,94vw);
+  width: min(680px,calc(var(--vw) * 94));
   margin: 0 auto 44px;
   animation: riseIn 1.2s ease .4s both;
 }
 .poem-row {
-  display: flex; align-items: center; gap: clamp(4px,1.5vw,12px);
+  display: flex; align-items: center; gap: clamp(4px,calc(var(--vw) * 1.5),12px);
   padding: 9px 16px;
   border-left: 2px solid;
   margin-bottom: 4px;
@@ -8074,7 +8081,7 @@ body {
 }
 html[lang="en"] .poem-level { width: 106px; letter-spacing: 1px; }
 .poem-text {
-  font-size: clamp(10px,1.8vw,13px);
+  font-size: clamp(10px,calc(var(--vw) * 1.8),13px);
   font-family: 'Noto Sans JP', sans-serif; font-weight: 300;
   color: rgba(220,200,255,.85); letter-spacing: 1px; line-height: 1.5;
 }
@@ -8095,7 +8102,7 @@ html[lang="en"] .poem-level { width: 106px; letter-spacing: 1px; }
   font-family: 'Noto Sans JP', sans-serif; font-weight: 700;
   font-size: 18px; padding: 11px 26px;
   text-align: center; outline: none;
-  width: min(380px,88vw); letter-spacing: 3px;
+  width: min(380px,calc(var(--vw) * 88)); letter-spacing: 3px;
   transition: border-color .4s, box-shadow .4s;
   backdrop-filter: blur(8px);
 }
@@ -8104,7 +8111,7 @@ html[lang="en"] .poem-level { width: 106px; letter-spacing: 1px; }
 
 /* ====== CERTIFICATE ====== */
 #certificate {
-  width: min(760px, calc(100vw - 32px)); margin: 0 auto 40px;
+  width: min(760px, calc(calc(var(--vw) * 100) - 32px)); margin: 0 auto 40px;
   animation: riseIn 1.5s ease .8s both;
   box-sizing: border-box;
   max-width: 100%;
@@ -8127,7 +8134,7 @@ html[lang="en"] .poem-level { width: 106px; letter-spacing: 1px; }
     radial-gradient(ellipse at 75% 85%, rgba(80,0,150,.5) 0%, transparent 50%),
     linear-gradient(160deg, #08001c, #060018, #090020);
   border-radius: 16px;
-  padding: clamp(16px,3vw,56px) clamp(10px,2.5vw,56px);
+  padding: clamp(16px,calc(var(--vw) * 3),56px) clamp(10px,calc(var(--vw) * 2.5),56px);
   position: relative; overflow: visible;
 }
 
@@ -8169,7 +8176,7 @@ html[lang="en"] .poem-level { width: 106px; letter-spacing: 1px; }
   background: linear-gradient(90deg, transparent, rgba(255,215,0,.4), transparent);
 }
 .cert-main-title {
-  font-size: clamp(17px,3.5vw,30px); font-weight: 900; letter-spacing: 2px;
+  font-size: clamp(17px,calc(var(--vw) * 3.5),30px); font-weight: 900; letter-spacing: 2px;
   color: transparent;
   background: linear-gradient(135deg,#ffd700 0%,#fff 45%,#ff88ff 70%,#00d4ff 100%);
   background-size: 250% auto;
@@ -8185,7 +8192,7 @@ html[lang="en"] .poem-level { width: 106px; letter-spacing: 1px; }
 .cert-rl { font-size: 8px; letter-spacing: 5px; color: rgba(180,140,255,.4); text-transform: uppercase; margin-bottom: 6px; }
 .cert-recipient {
   font-family: 'Noto Sans JP', sans-serif; font-weight: 900;
-  font-size: clamp(20px,4vw,38px);
+  font-size: clamp(20px,calc(var(--vw) * 4),38px);
   color: #fff; letter-spacing: 4px; min-height: 50px;
   display: flex; align-items: center; justify-content: center;
   text-shadow: 0 0 30px rgba(180,100,255,.8), 0 0 60px rgba(100,0,200,.4);
@@ -8201,7 +8208,7 @@ html[lang="en"] .poem-level { width: 106px; letter-spacing: 1px; }
 
 /* ---- 10 Chakra Bar ---- */
 .cert-chakra-bar {
-  display: flex; gap: clamp(2px,1vw,6px); justify-content: center; flex-wrap: nowrap;
+  display: flex; gap: clamp(2px,calc(var(--vw) * 1),6px); justify-content: center; flex-wrap: nowrap;
   margin: 20px 0; position: relative; z-index: 2;
   padding: 6px 2px;
 }
@@ -8209,7 +8216,7 @@ html[lang="en"] .poem-level { width: 106px; letter-spacing: 1px; }
   width: clamp(18px,7.5%,32px); height: clamp(18px,7.5%,32px);
   border-radius: 50%; border: 2px solid; flex-shrink: 1; min-width: 0;
   display: flex; align-items: center; justify-content: center;
-  font-size: clamp(7px,1.5vw,12px);
+  font-size: clamp(7px,calc(var(--vw) * 1.5),12px);
   box-shadow: 0 0 12px, 0 0 24px;
   animation: pipPulse 2s ease-in-out infinite;
   position: relative; cursor: default;
@@ -8243,7 +8250,7 @@ html[lang="en"] .poem-level { width: 106px; letter-spacing: 1px; }
   text-transform: uppercase; margin-bottom: 7px; display: block;
 }
 .stat-val {
-  font-size: clamp(18px,3vw,26px); font-weight: 900;
+  font-size: clamp(18px,calc(var(--vw) * 3),26px); font-weight: 900;
   color: var(--gold); text-shadow: 0 0 12px rgba(255,215,0,.4); display: block;
 }
 .stat-val.rainbow {
@@ -8322,7 +8329,7 @@ html[lang="en"] .poem-level { width: 106px; letter-spacing: 1px; }
   text-transform: uppercase; margin-bottom: 3px;
 }
 .cert-id-block .id-val {
-  font-size: clamp(8px,1.8vw,11px); color: rgba(255,215,0,.7); letter-spacing: clamp(0px,0.5vw,2px); word-break: break-all;
+  font-size: clamp(8px,calc(var(--vw) * 1.8),11px); color: rgba(255,215,0,.7); letter-spacing: clamp(0px,calc(var(--vw) * 0.5),2px); word-break: break-all;
 }
 .cert-id-block .id-date { font-size: 10px; color: rgba(180,140,255,.35); letter-spacing: 1px; }
 
@@ -8462,7 +8469,7 @@ html[lang="en"] .poem-level { width: 106px; letter-spacing: 1px; }
 
 .sacred-text-ja {
   font-family: 'Noto Sans JP', sans-serif;
-  font-size: clamp(13px,2.2vw,17px);
+  font-size: clamp(13px,calc(var(--vw) * 2.2),17px);
   font-weight: 700;
   letter-spacing: 3px;
   line-height: 2.2;
@@ -8474,7 +8481,7 @@ html[lang="en"] .poem-level { width: 106px; letter-spacing: 1px; }
   filter: drop-shadow(0 0 8px rgba(255,215,0,.3));
 }
 .sacred-wish {
-  font-size: clamp(16px,3vw,24px);
+  font-size: clamp(16px,calc(var(--vw) * 3),24px);
   font-weight: 900;
   letter-spacing: 6px;
   margin-top: 2px;
@@ -8564,7 +8571,7 @@ html[lang="en"] .poem-level { width: 106px; letter-spacing: 1px; }
 }
 #theaterPanel {
   position: relative; z-index: 1;
-  width: min(480px, calc(100vw - 32px));
+  width: min(480px, calc(calc(var(--vw) * 100) - 32px));
   box-sizing: border-box;
   background: linear-gradient(160deg,#08001c,#04000e);
   border: 1px solid rgba(255,215,0,.25);
@@ -8590,7 +8597,7 @@ html[lang="en"] .poem-level { width: 106px; letter-spacing: 1px; }
 }
 #theaterEmoji { font-size: 28px; line-height: 1; }
 #theaterName {
-  font-size: clamp(13px,2.5vw,18px); font-weight: 900;
+  font-size: clamp(13px,calc(var(--vw) * 2.5),18px); font-weight: 900;
   color: #fff; letter-spacing: 1px;
   font-family: 'Noto Sans JP', sans-serif;
 }
@@ -8606,7 +8613,7 @@ html[lang="en"] .poem-level { width: 106px; letter-spacing: 1px; }
 #theaterSpeech {
   min-height: 38px;
   font-family: 'Noto Sans JP', sans-serif; font-weight: 700;
-  font-size: clamp(11px,2vw,14px); letter-spacing: 1px; line-height: 1.7;
+  font-size: clamp(11px,calc(var(--vw) * 2),14px); letter-spacing: 1px; line-height: 1.7;
   color: rgba(255,230,180,.9);
   text-align: center; padding: 4px 8px;
   text-shadow: 0 0 12px rgba(255,180,80,.4);
@@ -8642,7 +8649,7 @@ html[lang="en"] .poem-level { width: 106px; letter-spacing: 1px; }
 }
 #chakraTheaterPanel {
   position: relative; z-index: 1;
-  width: min(440px, calc(100vw - 32px));
+  width: min(440px, calc(calc(var(--vw) * 100) - 32px));
   box-sizing: border-box;
   background: linear-gradient(160deg,#08001c,#04000e);
   border: 1px solid rgba(255,215,0,.2);
@@ -8673,7 +8680,7 @@ html[lang="en"] .poem-level { width: 106px; letter-spacing: 1px; }
   box-shadow: 0 0 16px;
 }
 #chakraTheaterTitle {
-  font-size: clamp(12px,2.5vw,17px); font-weight: 900;
+  font-size: clamp(12px,calc(var(--vw) * 2.5),17px); font-weight: 900;
   color: #fff; letter-spacing: 1px;
   font-family: 'Noto Sans JP', sans-serif;
 }
@@ -8689,7 +8696,7 @@ html[lang="en"] .poem-level { width: 106px; letter-spacing: 1px; }
 #chakraTheaterPoem {
   min-height: 36px;
   font-family: 'Noto Sans JP', sans-serif; font-weight: 700;
-  font-size: clamp(11px,2vw,14px); letter-spacing: 2px; line-height: 1.8;
+  font-size: clamp(11px,calc(var(--vw) * 2),14px); letter-spacing: 2px; line-height: 1.8;
   text-align: center; padding: 4px 8px;
   transition: opacity .4s;
 }
@@ -10827,5 +10834,6 @@ window.addEventListener('message', function(e) {
 
 </body>
 </html>
+
 
 
