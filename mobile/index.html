@@ -2331,10 +2331,12 @@ canvas {
     id="youtubePlayer"
     src="https://drive.google.com/file/d/1Pi_pkx50JRVsdBdmm2YdCCUdUx078PtM/preview"
     frameborder="0"
-    allow="autoplay; encrypted-media; fullscreen; picture-in-picture; web-share"
+    allow="autoplay; encrypted-media; fullscreen; picture-in-picture; web-share; clipboard-write"
     allowfullscreen
     playsinline
     webkit-playsinline
+    x5-video-player-type="h5"
+    x5-playsinline="true"
     scrolling="no">
   </iframe>
   <!-- 一時停止時の黒幕オーバーレイ -->
@@ -7665,12 +7667,14 @@ document.addEventListener('keydown', (e) => {
 
   // Google Drive プレビューURLのベース
   const BASE_SRC = 'https://drive.google.com/file/d/1THneyyJq47CVWGUO1PyS8o8a1xHs7EZH/preview';
-  const PLAY_SRC = BASE_SRC + '?autoplay=1';
+  const PLAY_SRC = BASE_SRC + '?autoplay=1&mute=0';
 
-  // 再生ボタン：srcをセットして再生開始
+  // 再生ボタン：srcをセットして再生開始（モバイル対応）
   function handlePlay(e) {
     e.preventDefault();
     e.stopPropagation();
+    // モバイル対応: 一度リセットしてから即セット（ユーザー操作の同期内で実行）
+    iframe.src = 'about:blank';
     iframe.src = PLAY_SRC;
     overlay.classList.remove('paused');
     playBtn.style.transform = 'scale(0.9)';
@@ -10823,3 +10827,4 @@ window.addEventListener('message', function(e) {
 
 </body>
 </html>
+
