@@ -2333,6 +2333,7 @@ canvas {
     playsinline
     webkit-playsinline
     loop
+    muted
     style="width:100%;height:100%;object-fit:cover;">
   </video>
   <!-- 一時停止時の黒幕オーバーレイ -->
@@ -7666,7 +7667,12 @@ document.addEventListener('keydown', (e) => {
   function handlePlay(e) {
     e.preventDefault();
     e.stopPropagation();
-    video.play();
+    video.muted = false;
+    video.play().catch(function() {
+      // 音声付き再生がブロックされた場合はミュートで再生
+      video.muted = true;
+      video.play();
+    });
     overlay.classList.remove('paused');
     playBtn.style.transform = 'scale(0.9)';
     setTimeout(function() { playBtn.style.transform = ''; }, 150);
@@ -10819,6 +10825,7 @@ window.addEventListener('message', function(e) {
 
 </body>
 </html>
+
 
 
 
