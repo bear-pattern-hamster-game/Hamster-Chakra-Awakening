@@ -7667,14 +7667,14 @@ document.addEventListener('keydown', (e) => {
 
   // Google Drive プレビューURLのベース
   const BASE_SRC = 'https://drive.google.com/file/d/1THneyyJq47CVWGUO1PyS8o8a1xHs7EZH/preview';
-  const PLAY_SRC = BASE_SRC + '?autoplay=1&mute=0';
+  const PLAY_SRC = BASE_SRC + '?autoplay=1';
 
-  // 再生ボタン：srcをセットして再生開始（モバイル対応）
+  // 再生ボタン：srcをセットして再生開始
   function handlePlay(e) {
     e.preventDefault();
     e.stopPropagation();
-    // モバイル対応: 一度リセットしてから即セット（ユーザー操作の同期内で実行）
-    iframe.src = 'about:blank';
+    // すでに再生中なら何もしない
+    if (iframe.src === PLAY_SRC) return;
     iframe.src = PLAY_SRC;
     overlay.classList.remove('paused');
     playBtn.style.transform = 'scale(0.9)';
@@ -10827,4 +10827,5 @@ window.addEventListener('message', function(e) {
 
 </body>
 </html>
+
 
