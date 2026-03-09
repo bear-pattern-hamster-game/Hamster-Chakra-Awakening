@@ -1621,6 +1621,34 @@ canvas {
   color: #ffd060;
 }
 
+/* ==================== VIDEO TIME DISPLAY ==================== */
+#videoTimeDisplay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  #videoTimeDisplay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.85);
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+    padding: 0 10px;
+    height: 34px;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    text-shadow: 0 0 8px rgba(160, 100, 255, 0.7);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    min-width: 90px;
+  }
+}
+
 /* ==================== VIDEO PAUSE OVERLAY (黒幕) ==================== */
 #videoPauseOverlay {
   display: none;
@@ -2319,7 +2347,8 @@ canvas {
 <!-- ==================== VIDEO CONTROL BUTTONS (スマホ用) ==================== -->
 <div id="videoControls">
   <button id="videoPlayBtn" class="video-ctrl-btn" title="動画を再生">▶</button>
-  <button id="videoPauseBtn" class="video-ctrl-btn" title="動画を停止">⏹</button>
+  <button id="videoPauseBtn" class="video-ctrl-btn" title="動画を一時停止">⏸</button>
+  <div id="videoTimeDisplay"><span id="videoCurrentTime">0:00</span>&nbsp;/&nbsp;<span id="videoDuration">0:00</span></div>
 </div>
 
 <!-- ==================== VIDEO TOGGLE BUTTON (スマホ用) ==================== -->
@@ -2338,7 +2367,7 @@ canvas {
   </video>
   <!-- 一時停止時の黒幕オーバーレイ -->
   <div id="videoPauseOverlay">
-    <span class="pause-icon">⏹</span>
+    <span class="pause-icon">⏸</span>
   </div>
 </div>
 
@@ -7662,6 +7691,28 @@ document.addEventListener('keydown', (e) => {
   const pauseBtn = document.getElementById('videoPauseBtn');
   const video = document.getElementById('youtubePlayer');
   const overlay = document.getElementById('videoPauseOverlay');
+  const currentTimeEl = document.getElementById('videoCurrentTime');
+  const durationEl = document.getElementById('videoDuration');
+
+  function formatTime(sec) {
+    if (isNaN(sec)) return '0:00';
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return m + ':' + (s < 10 ? '0' : '') + s;
+  }
+
+  // 動画の総時間が取得できたら表示
+  video.addEventListener('loadedmetadata', function() {
+    durationEl.textContent = formatTime(video.duration);
+  });
+
+  // 再生中は現在時間を更新
+  video.addEventListener('timeupdate', function() {
+    currentTimeEl.textContent = formatTime(video.currentTime);
+    if (!isNaN(video.duration) && durationEl.textContent === '0:00') {
+      durationEl.textContent = formatTime(video.duration);
+    }
+  });
 
   // 再生ボタン
   function handlePlay(e) {
@@ -7678,21 +7729,26 @@ document.addEventListener('keydown', (e) => {
     setTimeout(function() { playBtn.style.transform = ''; }, 150);
   }
 
-  // 停止ボタン
-  function handleStop(e) {
+  // 一時停止ボタン
+  function handlePause(e) {
     e.preventDefault();
     e.stopPropagation();
-    video.pause();
-    video.currentTime = 0;
-    overlay.classList.add('paused');
+    if (video.paused) {
+      // すでに一時停止中なら再生に戻す
+      video.play().catch(function() {});
+      overlay.classList.remove('paused');
+    } else {
+      video.pause();
+      overlay.classList.add('paused');
+    }
     pauseBtn.style.transform = 'scale(0.9)';
     setTimeout(function() { pauseBtn.style.transform = ''; }, 150);
   }
 
   playBtn.addEventListener('click', handlePlay);
   playBtn.addEventListener('touchstart', handlePlay, { passive: false });
-  pauseBtn.addEventListener('click', handleStop);
-  pauseBtn.addEventListener('touchstart', handleStop, { passive: false });
+  pauseBtn.addEventListener('click', handlePause);
+  pauseBtn.addEventListener('touchstart', handlePause, { passive: false });
 })();
 
 
@@ -10825,6 +10881,7 @@ window.addEventListener('message', function(e) {
 
 </body>
 </html>
+
 
 
 
